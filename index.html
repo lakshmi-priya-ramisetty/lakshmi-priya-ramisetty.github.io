@@ -13,10 +13,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Personal Portfolio</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+  <title>Lakshmi Priya Ramisetty — AI/ML Engineer</title>
+  <meta content="Lakshmi Priya Ramisetty — AI/ML Engineer building LLM agents and ML models for fraud, KYB and risk decisioning. Knowledge graphs, RAG, model evaluation. Published GenAI researcher." name="description">
+  <meta content="AI/ML Engineer, LLM agents, knowledge graphs, RAG, machine learning, data engineering, MLOps, GenAI, fraud, KYB, risk decisioning" name="keywords">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"
+        integrity="sha384-gSJzCOtDZjCJLnLHBld7v4xJStn/Zm1tlIRbF7KfFAnCCqT4wrc6CpihUEUbG/ab" crossorigin="anonymous">
 
 
   <!-- Google Fonts -->
@@ -33,17 +34,8 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169007209-3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-169007209-3');
-  </script>
-
+  <!-- Knowledge-graph hero -->
+  <link href="assets/css/graph-hero.css" rel="stylesheet">
 
 
   <!-- =======================================================
@@ -65,8 +57,10 @@
 
     <div class="container">
 
-      <h1><a href="index.html">Lakshmi Priya Ramisetty</a></h1>
-      <h2 style="color:#fff">I'm a <span class="typing" style="color:#12D640"></span></h2>
+      <div class="hero-id">
+        <h1><a href="index.html">Lakshmi Priya Ramisetty</a></h1>
+        <h2 style="color:#fff"><span class="typing" style="color:#12D640"></span></h2>
+      </div>
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="#header"> <span>Home</span></a></li>
@@ -79,22 +73,48 @@
           <li><a href="#skills"> <span>Skills</span></a></li>
           <li><a href="#research"> <span>Research</span></a></li>
           <!-- <li><a href="#links"> <span>Resume & Links</span></a></li> -->
-          <li><a href="#contacts"> <span>Contact</span></a></li>
+          <li><a href="#contact"> <span>Contact</span></a></li>
 
         </ul>
       </nav><!-- .nav-menu -->
 
       <div class="social-links">
-          <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-          <a href="mailto:lakshmipriya.ramisetty@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-          <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" class="medium"><i class="bx bxl-medium"></i></a>
+          <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" rel="noopener" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" rel="noopener" class="github"><i class="bx bxl-github"></i></a>
+          <a href="mailto:lakshmipriya.ramisetty@gmail.com" class="google"><i class="bx bxl-google"></i></a>
+          <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" rel="noopener" class="medium"><i class="bx bxl-medium"></i></a>
           <!-- <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" class="google"><i class="bx bxl-google"></i></a> -->
 
       </div>
 
     </div>
   </header><!-- End Header -->
+
+  <!-- ======= Knowledge-Graph Hero (home view) ======= -->
+  <div id="graph-hero" role="img" aria-label="Interactive knowledge graph of Lakshmi Priya Ramisetty's experience, skills, projects, research and education. A text list of the same content follows."></div>
+
+  <!-- accessible / mobile / no-JS fallback: same content as the graph -->
+  <nav id="gh-list" aria-label="Portfolio map"></nav>
+
+  <div id="gh-hint"><b>Drag</b> to explore · <b>scroll</b> to zoom · <b>click</b> a node</div>
+
+  <div id="gh-xp">
+    <div class="gh-xp-title">At a glance</div>
+    <div class="stats">
+      <div><b>—</b> yrs exp</div><div><b>—</b> GCP certs</div><div><b>—</b> papers</div><div><b>—</b> degrees</div>
+    </div>
+  </div>
+
+  <aside id="gh-panel" role="dialog" aria-modal="false" aria-label="Details">
+    <button class="gh-close" aria-label="Close details">×</button>
+    <div id="gh-panel-body"></div>
+  </aside>
+
+  <div id="gh-toast">
+    <div class="ico"><i class="bx bx-trophy" style="color:#ffc107"></i></div>
+    <div><div class="t-title">Achievement</div><div class="t-desc"></div></div>
+  </div>
+  <!-- End Knowledge-Graph Hero -->
 
   <!-- ======= About Section ======= -->
   <section id="about" class="about">
@@ -108,16 +128,16 @@
 
       <div class="row">
         <div class="col-lg-4" data-aos="fade-right">
-          <img src="assets/img/page/profile.png" class="img-fluid" alt="">
+          <img src="assets/img/page/profile.png" class="img-fluid" alt="Lakshmi Priya Ramisetty">
         </div>
         <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-          <p>👋 Hello! I'm Lakshmi Priya Ramisetty, an experienced and certified Data and Machine Learning Engineer with a robust background in both data engineering and machine learning, and a specialized focus in Generative AI. I hold a Bachelor’s degree in Computer Science and a Master’s in Artificial Intelligence, which together provide a solid academic foundation that I leverage to tackle complex, real-world challenges in AI and data-driven solutions. </p>
+          <p>I'm an AI/ML engineer who builds intelligent systems end to end — the data pipelines that feed them, the models at their core, and the production software that ships them. Over 4+ years I've gone from machine learning, to deep data engineering (Google Cloud Professional ML Engineer, Professional Data Engineer & Associate Cloud Engineer certified), to building AI-native platforms powered by LLMs and multi-agent systems. Because I own the whole stack, I can take an idea from raw data to a deployed product without handing it off three times.</p>
 
-          <p>💾 In Data Engineering, I excel at designing and implementing resilient data pipelines on Google Cloud Platform (GCP), crafting end-to-end data architectures that support high-performance AI applications. My data engineering expertise spans data ingestion, ETL processes, and pipeline optimization, where I use tools like Dataflow, BigQuery, Apache Beam, and Airflow to manage, automate, and scale data workflows. I have a strong command of SQL and Python, ensuring efficient data integration and processing within complex systems.</p>
-            
-          <p>🛠️ As an ML Engineer, my work in large language models (LLMs) reflects a comprehensive understanding of their architecture and deployment. I specialize in both fine-tuning existing LLMs and building models from scratch to fit unique application needs. With expertise in prompt engineering, model optimization, and advanced inference techniques like model distillation and quantization, I create scalable, high-performance AI solutions that are ready for production. My work with CI/CD integration further enables seamless model deployment and continuous iteration, ensuring models remain relevant and effective over time. </p>
-          <p>🚀 I am passionate about pushing the boundaries of what AI can achieve and am always excited to connect with professionals and innovators in the field. Let’s connect, share insights, and explore opportunities to create impactful AI-driven solutions together!
-          </p>
+          <p>Currently at BlueArc (built by risk and trust leaders from Google, eBay and WePay), I architected a risk-decisioning layer that evaluates 2M+ business signals monthly, cutting policy deployment from months to hours. I also build the LLM agents and ML models behind our fraud, KYB, ad and marketplace risk products, protecting significant ad spend and transaction volume for major names in advertising, e-commerce and payments.</p>
+
+          <p>What I focus on: <strong>Generative AI &amp; agents</strong> — LLM agents and multi-agent systems (LangChain, LangGraph, Google ADK), plus RAG, knowledge graphs, prompt engineering, fine-tuning, evaluation, inference optimization (quantization, distillation) and LLM tracing (Langfuse). <strong>Machine learning</strong> — scoring and decisioning models spanning anomaly detection and classification, gradient-boosting and graph-based methods. <strong>Data &amp; MLOps</strong> — Dataflow, Apache Beam, Airflow and BigQuery, plus CI/CD, monitoring and observability (Prometheus, Grafana, Cloud Monitoring).</p>
+
+          <p>The through-line isn't a single domain — it's taking ownership of hard problems end to end, working closely with the customers who rely on what I build. I've applied that across risk, healthcare and finance. I hold an MS in Artificial Intelligence and an Integrated MTech in Computer Science, and have published research including 4EV (text-to-video generation) and VetMamba (efficient long-sequence modeling with the Mamba architecture). If you're building something ambitious with AI, I'd love to connect.</p>
           <div class="row">
             <div class="col-lg-6">
               <ul>
@@ -267,11 +287,11 @@
 
          <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/PML.png" class="img-fluid" alt="">
+            <img src="assets/img/page/PML.png" class="img-fluid" alt="Google Cloud Professional Machine Learning Engineer certificate">
             <div class="portfolio-info">
               <h4>Google Cloud Certified Professional Machine Learning Engineer</h4>
               <div class="portfolio-links">
-                <a href="https://google.accredible.com/57f3cea0-3495-41e7-a146-3f559bf7f9d4" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://google.accredible.com/57f3cea0-3495-41e7-a146-3f559bf7f9d4" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
            </div>
@@ -279,11 +299,11 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 370px; top: 0px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/PDE.png" class="img-fluid" alt="">
+            <img src="assets/img/page/PDE.png" class="img-fluid" alt="Google Cloud Professional Data Engineer certificate">
             <div class="portfolio-info">
               <h4>Google Cloud Certified Professional Data Engineer</h4>
               <div class="portfolio-links">
-                <a href="https://google.accredible.com/b73bc000-3fbe-4397-a872-7bc28523fd96" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://google.accredible.com/b73bc000-3fbe-4397-a872-7bc28523fd96" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -291,11 +311,11 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 740px; top: 0px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/ACE.png" class="img-fluid" alt="">
+            <img src="assets/img/page/ACE.png" class="img-fluid" alt="Google Cloud Associate Cloud Engineer certificate">
             <div class="portfolio-info">
               <h4>Google Cloud Certified Associate Cloud Engineer</h4>
               <div class="portfolio-links">
-                <a href="https://google.accredible.com/e5c1df36-2b4d-4ea0-aad5-81791654c506" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://google.accredible.com/e5c1df36-2b4d-4ea0-aad5-81791654c506" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -303,11 +323,11 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-project" style="position: absolute; left: 0px; top: 218.875px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/Practical Machine Learning.png" class="img-fluid" alt="">
+            <img src="assets/img/page/Practical Machine Learning.png" class="img-fluid" alt="Johns Hopkins University Practical Machine Learning certificate">
             <div class="portfolio-info">
               <h4>John Hopkins University - Practical Machine Learning</h4>
               <div class="portfolio-links">
-                <a href="http://coursera.org/verify/SN8JUKQ5TFUN" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://coursera.org/verify/SN8JUKQ5TFUN" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -315,11 +335,11 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-project" style="position: absolute; left: 370px; top: 218.875px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/Statistical Inference.png" class="img-fluid" alt="">
+            <img src="assets/img/page/Statistical Inference.png" class="img-fluid" alt="Johns Hopkins University Statistical Inference certificate">
             <div class="portfolio-info">
               <h4>John Hopkins University - Statistical Inference</h4>
               <div class="portfolio-links">
-                <a href="http://coursera.org/verify/XKCGD8S7U5NB" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://coursera.org/verify/XKCGD8S7U5NB" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -328,11 +348,11 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-project" style="position: absolute; left: 740px; top: 218.875px;">
           <div class="portfolio-wrap">
-            <img src="assets/img/page/R Programming.png" class="img-fluid" alt="">
+            <img src="assets/img/page/R Programming.png" class="img-fluid" alt="Johns Hopkins University R Programming certificate">
             <div class="portfolio-info">
               <h4>John Hopkins University - R Programming</h4>
               <div class="portfolio-links">
-                <a href="http://coursera.org/verify/QXFSF62VNQJL" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
+                <a href="https://coursera.org/verify/QXFSF62VNQJL" target="_blank" rel="noopener" title="Certificate"><i class="bx bx-link"></i></a>
               </div>
             </div>
           </div>
@@ -364,14 +384,14 @@
               <li>Built probabilistic graph models to uncover hidden business relationships, improving fraud/risk scoring.</li>
                 <li>Used text and image embeddings to analyze product and website data, identifying businesses reusing identical products across domains
                   and ads, and flagging impersonation or fraudulent activity.</li>
-              <li>Engineered a Scenario Engine enabling drag-and-drop SQL/Python workflow generation, reducing manual coding and accelerating what-if
+              <li>Built a risk-decisioning layer with drag-and-drop SQL/Python workflow generation, reducing manual coding and accelerating what-if
                 fraud/risk simulations.</li>
               <li>Orchestrated agentic workflows to unify multimodal business data, feeding risk models, improving risk classification accuracy by 38%.</li>
             </ul>
           </div>
           <div class="col-lg-12" data-aos="fade-up">
             <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-              <h4 style="text-align:left;"><a href="https://www.intheloopai.com/" style="color:#12d640">Data Engineer - GenAI</a><br> </h4>
+              <h4 style="text-align:left;"><a href="https://www.intheloopai.com/" style="color:#12d640">Machine Learning Engineer, GenAI</a><br> </h4>
               <h5 style="text-align:left;">InTheLoop INC</h5>
               <p style="text-align:left;color:#fff">Oct 2024 - Jan 2025<em></em></p>
               <ul style="text-align:left;">
@@ -442,7 +462,7 @@
                 </ul>
               </div>
               <!-- <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-                <h4 style="text-align:left;"><a href="https://www.meditab.com/" target="_blank" style="color:#12d640">Meditab Software Pvt. Ltd.</a><br> </h4>
+                <h4 style="text-align:left;"><a href="https://www.meditab.com/" target="_blank" rel="noopener" style="color:#12d640">Meditab Software Pvt. Ltd.</a><br> </h4>
                 <h5 style="text-align:left;">May 2018 - June 2018</h5>
                 <p style="text-align:left;color:#fff"><em>Programmer Analyst</em></p>
                 <ul style="text-align:left;">
@@ -453,7 +473,7 @@
                 </ul>
               </div> -->
               <!-- <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-                <h4 style="text-align:left;"><a href="https://www.sac.gov.in/Vyom/index.jsp" target="_blank" style="color:#12d640">Space Application Centre, ISRO</a><br> </h4>
+                <h4 style="text-align:left;"><a href="https://www.sac.gov.in/Vyom/index.jsp" target="_blank" rel="noopener" style="color:#12d640">Space Application Centre, ISRO</a><br> </h4>
                 <h5 style="text-align:left;">Jan 2018 - May 2018</h5>
                 <p style="text-align:left;color:#fff"><em>Research Intern</em></p>
                 <ul style="text-align:left;">
@@ -556,19 +576,6 @@
         </div>
 
 
-        <div class="col-lg-4 col-md-6 portfolio-item filter-datascience">
-          <center><h4>Machine Learning A-Z</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/page/recommender.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/mla-z.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
           <center><h4>To-Do App</h4></center>
           <div class="portfolio-wrap">
@@ -580,20 +587,6 @@
             </div>
           </div>
         </div> -->
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-datascience">
-          <!-- <br> -->
-          <center><h4>Hands-On Machine Learning</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/page/resume.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Hands-On Machine Learning</h4>
-              <div class="portfolio-links">
-                <a href="projects/handsonml.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
           <br>
@@ -607,30 +600,6 @@
             </div>
           </div>
         </div> -->
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-          <center><h4>RainFall Prediction</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/page/rainfall.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/rainfall.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-datascience">
-          <center><h4>Toxic Comment classification</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/page/toxic.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/toxic.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -652,7 +621,7 @@
         <div class="blog-wrap">
           <img src="assets/img/page/jsonblog.png" class="img-fluid" alt="">
           <div class="blog-info">
-            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/handling-large-json-files-without-fully-loading-them-into-memory-ce3d020a3f82" target="_blank">Handling large JSON files without fully loading them into memory</a></h4>
+            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/handling-large-json-files-without-fully-loading-them-into-memory-ce3d020a3f82" target="_blank" rel="noopener">Handling large JSON files without fully loading them into memory</a></h4>
             <!-- <p>Gain insights into the fundamentals of machine learning and its applications.</p> -->
           </div>
         </div>
@@ -662,7 +631,7 @@
         <div class="blog-wrap">
           <img src="assets/img/page/tensorflow.png" class="img-fluid" alt="">
           <div class="blog-info">
-            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/how-to-install-tensorflow-text-on-mac-m1-m2-0bacb6fe83d1" target="_blank">Tensorflow-text on Mac M1/M2</a></h4>
+            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/how-to-install-tensorflow-text-on-mac-m1-m2-0bacb6fe83d1" target="_blank" rel="noopener">Tensorflow-text on Mac M1/M2</a></h4>
             <!-- <p>Explore the transformative impact of AI on the healthcare industry.</p> -->
           </div>
         </div>
@@ -672,7 +641,7 @@
         <div class="blog-wrap">
           <img src="assets/img/page/errorrate.png" class="img-fluid" alt="" style="width:100%;object-fit:contain;background:#f5f1e8;">
           <div class="blog-info">
-            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/your-0-error-rate-isnt-telling-you-what-you-think-552bb22c1b02" target="_blank">Your 0% error rate isn't telling you what you think</a></h4>
+            <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/your-0-error-rate-isnt-telling-you-what-you-think-552bb22c1b02" target="_blank" rel="noopener">Your 0% error rate isn't telling you what you think</a></h4>
           </div>
         </div>
       </div>
@@ -759,8 +728,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12" data-aos="fade-up">
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="background:#fff">
-            <h4 style="text-align:left;color:#09203a">Languages & Databases</h4>
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <h4 style="text-align:left;color:#fff">Languages & Databases</h4>
                 <p style="text-align:left;">
                   <img src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg" alt="vectorlogo.zone" height="50" width="150">
                   <img src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg" alt="vectorlogo.zone" height="50" width="120">
@@ -772,10 +741,10 @@
 
                 </p>
             </div>
-            <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Libraries & Frameworks</h4>
+            <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <h4 style="text-align:left;color:#fff">Libraries & Frameworks</h4>
                 <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg" alt="vectorlogo.zone">
+                  <img src="https://www.vectorlogo.zone/logos/palletsprojects_flask/palletsprojects_flask-ar21.svg" alt="Flask">
                   <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg" alt="vectorlogo.zone">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="upload.wikimedia.org" width="90" height="70">
                   <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="vectorlogo.zone">
@@ -784,8 +753,8 @@
                   <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg" alt="upload.wikimedia.org" width="90" height="70">
               </p>
           </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-            <h4 style="text-align:left;color:#09203a">Cloud Tools</h4>
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <h4 style="text-align:left;color:#fff">Cloud Tools</h4>
               <p style="text-align:left;">
                 <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="vectorlogo.zone">
                 <img src="assets/img/page/dataflow.webp" alt="vectorlogo.zone" width="120" height="70">
@@ -795,7 +764,6 @@
                 <img src="assets/img/page/dialogflow.png" alt="vectorlogo.zone" width="120" height="70">
                 <img src="assets/img/page/ccai.png" alt="vectorlogo.zone" width="120" height="70">
                 <img src="assets/img/page/looker.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/data studio.png" alt="vectorlogo.zone" width="120" height="70">
                 <img src="assets/img/page/pubsub.png" alt="vectorlogo.zone" width="120" height="70">
                 <img src="assets/img/page/cloud sql.png" alt="vectorlogo.zone" width="120" height="70">
                 <img src="assets/img/page/cloud build.png" alt="vectorlogo.zone" width="120" height="70">
@@ -804,32 +772,27 @@
 
 
                 <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-ar21.svg" alt="vectorlogo.zone">
-                <img src="https://www.vectorlogo.zone/logos/amazon_ecs/amazon_ecs-ar21.svg" alt="vectorlogo.zone">
-                <img src="https://www.vectorlogo.zone/logos/amazon_elasticcontainer/amazon_elasticcontainer-ar21.svg" alt="vectorlogo.zone">
             </p>
         </div>
-        <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-          <h4 style="text-align:left;color:#09203a">Big Data, ETL & APIs</h4>
+        <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
+          <h4 style="text-align:left;color:#fff">Big Data, ETL & APIs</h4>
             <p style="text-align:left;">
               <img src="https://www.vectorlogo.zone/logos/apache_spark/apache_spark-ar21.svg" alt="vectorlogo.zone">
               <img src="https://www.vectorlogo.zone/logos/apache_beam/apache_beam-ar21.svg" alt="vectorlogo.zone">
 
               <img src="assets/img/page/hadoop.png" alt="vectorlogo.zone" width="120" height="70">
-              <img src="assets/img/page/spark.png" alt="vectorlogo.zone" width="120" height="70">
               <img src="assets/img/page/pyspark.png" alt="vectorlogo.zone" width="120" height="70">
 
 
               <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-ar21.svg" alt="vectorlogo.zone">
               <img src="https://www.vectorlogo.zone/logos/apache_hive/apache_hive-ar21.svg" alt="vectorlogo.zone">
-              <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-ar21.svg" alt="vectorlogo.zone">
               
           </p>
       </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Tools</h4>
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <h4 style="text-align:left;color:#fff">Tools</h4>
                 <p style="text-align:left;">
                   <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/jupyter/jupyter-ar21.svg" alt="vectorlogo.zone">
               </p>
           </div>
         </div>
@@ -842,7 +805,7 @@
 
   <!-- Start Contact Section -->
 
-  <section id="contacts" class="contact">
+  <section id="contact" class="contact">
     <div class="container">
 
       <div class="section-title">
@@ -864,10 +827,10 @@
             <i class="bx bx-share-alt"></i>
             <h3>Social Profiles</h3>
             <div class="social-links">
-              <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-              <a href="mailto:lakshmipriya.ramisetty@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-              <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" class="medium"><i class="bx bxl-medium"></i></a>
+              <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" rel="noopener" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" rel="noopener" class="github"><i class="bx bxl-github"></i></a>
+              <a href="mailto:lakshmipriya.ramisetty@gmail.com" class="google"><i class="bx bxl-google"></i></a>
+              <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" rel="noopener" class="medium"><i class="bx bxl-medium"></i></a>
             </div>
           </div>
         </div>
@@ -877,7 +840,6 @@
             <i class="bx bx-envelope"></i>
             <h3>Email</h3>
             <p>lakshmipriya.ramisetty@gmail.com</p>
-            <p>laasya71314@gmail.com</p>
           </div>
         </div>
         <div class="col-md-6 mt-4 d-flex align-items-stretch">
@@ -907,7 +869,7 @@
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script type="text/javascript">
     var typed = new Typed('.typing',{
-      strings: ["Data Engineer", "AI/ML Engineer", "Data Scientist"],
+      strings: ["AI/ML Engineer", "GenAI Researcher"],
       loop: true,
       typeSpeed: 65,
       backSpeed: 65
@@ -916,6 +878,11 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Knowledge-graph hero -->
+  <script src="assets/js/portfolio-data.js"></script>
+  <script src="assets/vendor/force-graph/force-graph.min.js"></script>
+  <script src="assets/js/graph-hero.js"></script>
 
 </body>
 
