@@ -1,0 +1,224 @@
+/* ============================================================
+   graph-hero.css — knowledge-graph landing layer
+   Loaded AFTER style.css so these rules win where they overlap.
+   ============================================================ */
+
+:root {
+  --gh-bg: #010e1b;
+  --gh-bg2: #09203a;
+  --gh-green: #12d640;
+  --gh-amber: #ffc107;
+  --gh-teal: #2ee6c0;
+  --gh-muted: #9fb2c4;
+}
+
+/* ---- Home header → slim top bar floating over the graph ----
+   (only on the home state; once a section opens, .header-top takes over) */
+#header:not(.header-top) {
+  height: auto;
+  min-height: 0;
+  display: block;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 998;
+  padding: 14px 26px;
+  overflow: visible;
+  background: linear-gradient(180deg, rgba(1, 14, 27, 0.96) 0%, rgba(1, 14, 27, 0) 100%);
+}
+#header:not(.header-top) .container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 100%;
+  width: 100%;
+}
+#header:not(.header-top) .hero-id { display: flex; flex-direction: column; }
+#header:not(.header-top) h1 { font-size: 19px; margin: 0; line-height: 1.15; white-space: nowrap; }
+#header:not(.header-top) h2 { display: block; font-size: 12px; margin: 1px 0 0; color: var(--gh-green); }
+#header:not(.header-top) h2 span { border-bottom: none; padding-bottom: 0; color: var(--gh-green); }
+#header:not(.header-top) .nav-menu { margin-top: 0; margin-left: auto; }
+#header:not(.header-top) .nav-menu li + li { margin-left: 18px; }
+#header:not(.header-top) .nav-menu a { font-size: 15px; }
+#header:not(.header-top) .social-links { margin-top: 0; margin-left: 16px; flex: 0 0 auto; }
+
+/* ---- The graph layer (sits above the body::before backdrop) ---- */
+#graph-hero {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+#graph-hero canvas { display: block; }
+/* hide the graph + its overlays once the visitor opens a section (set by main.js) */
+body.section-active #graph-hero,
+body.section-active #gh-hint,
+body.section-active #gh-xp,
+body.section-active #gh-tip,
+body.section-active #gh-toast,
+body.section-active #gh-list { display: none; }
+
+/* floating hover preview card */
+#gh-tip {
+  position: fixed; z-index: 7; pointer-events: none; opacity: 0; transform: translate(-50%, -100%);
+  background: rgba(9, 32, 58, 0.96); border: 1px solid rgba(46, 230, 192, 0.35);
+  border-radius: 10px; padding: 8px 12px; max-width: 240px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); transition: opacity .14s ease;
+}
+#gh-tip.show { opacity: 1; }
+#gh-tip .tip-t { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 13px; color: #fff; line-height: 1.25; }
+#gh-tip .tip-s { font-size: 11px; color: var(--gh-muted); margin-top: 2px; }
+#gh-tip .tip-y { font-size: 11px; color: var(--gh-teal); margin-top: 2px; }
+
+/* hint line */
+#gh-hint {
+  position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 5;
+  font-size: 13px; color: var(--gh-muted); letter-spacing: .3px; pointer-events: none;
+  transition: opacity .5s ease;
+}
+#gh-hint b { color: var(--gh-teal); }
+
+/* XP / level badge */
+#gh-xp {
+  position: fixed; left: 22px; bottom: 22px; z-index: 5;
+  background: rgba(9, 32, 58, 0.72); border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px; padding: 12px 16px; width: 232px; backdrop-filter: blur(6px);
+}
+#gh-xp .gh-xp-title { font-family: "Poppins", sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gh-green); margin-bottom: 10px; }
+#gh-xp .stats { display: flex; gap: 14px; font-size: 11px; color: var(--gh-muted); }
+#gh-xp .stats div { display: flex; flex-direction: column; }
+#gh-xp .stats b { color: #fff; font-family: "Poppins", sans-serif; font-size: 18px; line-height: 1.1; }
+#gh-xp .gh-xp-bar { margin-top: 12px; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+#gh-xp .gh-xp-bar i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--gh-teal), var(--gh-green)); transition: width .6s cubic-bezier(.22, .61, .36, 1); }
+#gh-xp .gh-xp-bar.done i { background: linear-gradient(90deg, var(--gh-amber), var(--gh-green)); box-shadow: 0 0 10px rgba(255, 193, 7, 0.65); }
+#gh-xp .gh-xp-prog { margin-top: 6px; font-size: 10px; letter-spacing: .3px; color: var(--gh-muted); }
+#gh-xp .gh-xp-prog b { color: #fff; font-family: "Poppins", sans-serif; }
+
+/* content panel (slides in from the right) */
+#gh-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 999;
+  width: min(440px, 92vw);
+  background: linear-gradient(160deg, var(--gh-bg2) 0%, var(--gh-bg) 100%);
+  border-left: 1px solid rgba(18, 214, 64, 0.25);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+  transform: translateX(105%); transition: transform .42s cubic-bezier(.22, .61, .36, 1);
+  padding: 78px 30px 30px; overflow-y: auto;
+}
+#gh-panel.open { transform: translateX(0); }
+#gh-panel .gh-close {
+  position: absolute; top: 22px; right: 22px; width: 34px; height: 34px;
+  border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.2); background: transparent;
+  color: #fff; font-size: 18px; cursor: pointer; line-height: 1; transition: all .18s;
+}
+#gh-panel .gh-close:hover { border-color: var(--gh-amber); color: var(--gh-amber); }
+#gh-panel .gh-back {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; margin: 0 6px 0 -2px; vertical-align: middle;
+  cursor: pointer; text-decoration: none;
+  color: var(--gh-muted); font-size: 22px; line-height: 1; transition: all .16s;
+}
+#gh-panel .gh-back:hover { color: var(--gh-green); transform: translateX(-2px); }
+#gh-panel .tag {
+  display: inline-block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--gh-bg); background: var(--gh-green); padding: 3px 10px; border-radius: 999px; font-weight: 600;
+}
+#gh-panel .tag.flag { background: var(--gh-amber); }
+#gh-panel h2 { font-family: "Poppins", sans-serif; font-size: 23px; margin: 14px 0 4px; color: #fff; }
+#gh-panel .sub { color: var(--gh-green); font-size: 14px; margin-bottom: 2px; }
+#gh-panel .dates { color: var(--gh-muted); font-size: 13px; margin-bottom: 16px; }
+#gh-panel ul { list-style: none; margin: 6px 0 18px; padding: 0; }
+#gh-panel ul li { position: relative; padding-left: 20px; margin-bottom: 11px; font-size: 14px; line-height: 1.55; color: #dfe7ef; }
+#gh-panel ul li::before { content: "▸"; position: absolute; left: 0; color: var(--gh-green); }
+#gh-panel .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+#gh-panel .chips span { font-size: 12px; color: var(--gh-teal); border: 1px solid rgba(46, 230, 192, 0.3); padding: 4px 10px; border-radius: 6px; }
+#gh-panel .full {
+  display: inline-block; font-family: "Poppins", sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--gh-bg); background: var(--gh-green); text-decoration: none; padding: 9px 16px; border-radius: 8px; transition: transform .15s;
+}
+#gh-panel .full:hover { transform: translateY(-1px); color: var(--gh-bg); }
+
+/* About panel (center-node click) */
+#gh-panel .gh-about .gh-photo { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(18, 214, 64, 0.5); margin-bottom: 14px; }
+#gh-panel .gh-about h2 { margin-top: 0; }
+#gh-panel .gh-bio { font-size: 14px; line-height: 1.6; color: #dfe7ef; margin: 12px 0 18px; }
+
+/* contact block inside the About panel */
+#gh-panel .gh-contact { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 6px; padding-top: 16px; }
+#gh-panel .gh-contact .gh-email { display: inline-flex; align-items: center; gap: 8px; color: var(--gh-teal); text-decoration: none; font-size: 14px; }
+#gh-panel .gh-contact .gh-email:hover { color: var(--gh-green); }
+#gh-panel .gh-contact .gh-email i { font-size: 17px; }
+#gh-panel .gh-social { display: flex; gap: 14px; margin-top: 14px; }
+#gh-panel .gh-social a { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.18); color: #cfe0ef; font-size: 19px; transition: all .18s; }
+#gh-panel .gh-social a:hover { border-color: var(--gh-green); color: var(--gh-green); transform: translateY(-2px); }
+
+/* branch-overview panel (branch-node click) — list of its leaves */
+#gh-panel .gh-branch-list { list-style: none; margin: 8px 0 4px; padding: 0; }
+#gh-panel .gh-branch-list li { margin: 0 0 8px; }
+#gh-panel .gh-branch-list a { display: block; cursor: pointer; text-decoration: none; padding: 12px 14px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; background: rgba(9, 32, 58, 0.4); transition: all .16s; }
+#gh-panel .gh-branch-list a:hover { border-color: var(--gh-green); background: rgba(18, 214, 64, 0.08); transform: translateX(2px); }
+#gh-panel .gh-branch-list a b { color: #fff; font-weight: 600; font-size: 14px; }
+#gh-panel .gh-branch-list a.flag b { color: var(--gh-amber); }
+#gh-panel .gh-branch-list a .yr { color: var(--gh-teal); font-size: 12px; margin-left: 8px; }
+#gh-panel .gh-branch-list a .sb { display: block; color: var(--gh-muted); font-size: 12px; margin-top: 3px; }
+
+/* achievement toast */
+#gh-toast {
+  position: fixed; right: 22px; bottom: 22px; z-index: 1000;
+  background: rgba(9, 32, 58, 0.96); border: 1px solid var(--gh-amber); border-radius: 12px;
+  padding: 14px 18px; display: flex; gap: 12px; align-items: center; max-width: 320px;
+  transform: translateY(140%); transition: transform .4s cubic-bezier(.22, .61, .36, 1);
+}
+#gh-toast.show { transform: translateY(0); }
+#gh-toast .ico { font-size: 26px; }
+#gh-toast .t-title { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 14px; color: var(--gh-amber); }
+#gh-toast .t-desc { font-size: 12px; color: var(--gh-muted); }
+
+/* ---- Mobile / no-JS / reduced-motion fallback: collapsible list ---- */
+#gh-list { display: none; }
+#gh-list {
+  position: fixed; inset: 64px 0 0 0; z-index: 1; overflow-y: auto;
+  padding: 16px 18px 80px;
+}
+#gh-list .gh-branch { border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; margin-bottom: 12px; background: rgba(9, 32, 58, 0.4); overflow: hidden; }
+#gh-list summary { cursor: pointer; padding: 14px 16px; font-family: "Poppins", sans-serif; font-weight: 600; font-size: 16px; color: #fff; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+#gh-list summary::-webkit-details-marker { display: none; }
+#gh-list summary::after { content: "+"; color: var(--gh-green); font-size: 20px; }
+#gh-list details[open] summary::after { content: "–"; }
+#gh-list .gh-leaf { display: block; padding: 11px 16px 11px 22px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: #cfe0ef; text-decoration: none; font-size: 14px; }
+#gh-list .gh-leaf b { color: #fff; font-weight: 600; }
+#gh-list .gh-leaf .yr { color: var(--gh-teal); font-size: 12px; margin-left: 6px; }
+#gh-list .gh-leaf.flag b { color: var(--gh-amber); }
+
+/* On phones: swap the canvas for the list. Also the reduced-motion fallback. */
+@media (max-width: 768px) {
+  body:not(.section-active) #graph-hero,
+  body:not(.section-active) #gh-hint,
+  #gh-tip,
+  #gh-xp { display: none; }
+  body:not(.section-active) #gh-list { display: block; }
+
+  /* compact mobile bar — name only; the hamburger handles nav */
+  #header:not(.header-top) { padding: 12px 16px; }
+  #header:not(.header-top) .container { display: block; }
+  #header:not(.header-top) h1 { font-size: 17px; white-space: nowrap; text-align: left; }
+  #header:not(.header-top) .social-links { display: none; }
+
+  /* Clip horizontal overflow on the ROOT only — never on <body>.
+     body is position:relative, so it is the containing block for the
+     absolutely-positioned sections; giving body overflow-x:hidden forces
+     overflow-y to compute to auto, which clips those sections away to
+     body's ~0 in-flow height (header is fixed, sections are absolute) and
+     leaves every section blank on mobile. */
+  html { overflow-x: hidden; }
+  #gh-list,
+  #gh-list .gh-branch,
+  #gh-list .gh-leaf,
+  #gh-list summary {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  #gh-list .gh-leaf { overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(.section-active) #graph-hero,
+  body:not(.section-active) #gh-hint { display: none; }
+  body:not(.section-active) #gh-list { display: block; }
+}

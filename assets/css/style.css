@@ -13,6 +13,7 @@ body {
   color: #fff;
   position: relative;
   background: transparent;
+  line-height: 1.6;
 }
 
 body::before {
@@ -39,6 +40,41 @@ a {
 a:hover {
   color: #12d640;
   text-decoration: none;
+}
+
+/* Visible keyboard focus indicator for accessibility */
+a:focus-visible,
+button:focus-visible,
+.mobile-nav-toggle:focus-visible,
+#portfolio-flters li:focus-visible {
+  outline: 2px solid #12d640;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip-to-content link: hidden until keyboard-focused */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: #12d640;
+  color: #010e1b;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 8px;
+  color: #010e1b;
+}
+
+.portfolio-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -196,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
   background: none;
   font-size: 24px;
   transition: all 0.4s;
-  outline: none !important;
+  outline: none;
   line-height: 1;
   cursor: pointer;
   text-align: right;
@@ -215,7 +251,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 9999;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.7);
-  transition: ease-in-out 0s;
+  transition: all ease-in-out 0.3s;
   opacity: 0;
   visibility: hidden;
   border-radius: 10px;
@@ -239,7 +275,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
-  color: #1c7d32;
+  color: #12d640;
   text-decoration: none;
 }
 
@@ -302,7 +338,10 @@ h1, h2, h3, h4, h5, h6 {
     height: 60px;
   }
   #header.header-top h1 {
-    font-size: 26px;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -532,7 +571,7 @@ section .container {
 
 .testimonials .testimonial-item h4 {
   font-size: 14px;
-  color: #999;
+  color: #b8c4d0;
   margin: 0 0 0 45px;
 }
 
@@ -566,7 +605,7 @@ section .container {
 }
 
 .blog-wrap img {
-  width: 120%;
+  width: 100%;
   height: 300px;
   object-fit: cover;
 }
@@ -664,7 +703,7 @@ section .container {
   background: #09203a;
   padding: 40px 40px;
   transition: all ease-in-out 0.3s;
-  margin: 10px
+  margin: 10px;
 }
 
 .services .icon-box .icon {
@@ -737,6 +776,36 @@ section .container {
 }
 
 /*--------------------------------------------------------------
+# Skills (dark cards + per-logo light chips)
+--------------------------------------------------------------*/
+/* The skill cards inherit the dark .services .icon-box background.
+   Each vendor logo sits on its own white chip so colored/dark-text
+   logos stay legible against the dark theme. */
+#skills .icon-box {
+  text-align: left;
+  padding: 22px 24px;
+}
+#skills .icon-box h4 {
+  margin-bottom: 16px;
+}
+#skills .icon-box p {
+  margin-bottom: 0;
+  line-height: 1;
+}
+#skills .icon-box img {
+  background: #fff;
+  border-radius: 8px;
+  padding: 7px 11px;
+  margin: 6px 8px 6px 0;
+  vertical-align: middle;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-sizing: content-box;
+}
+#skills .icon-box:hover img {
+  box-shadow: 0 2px 8px rgba(18, 214, 64, 0.25);
+}
+
+/*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
@@ -781,6 +850,17 @@ section .container {
   overflow: hidden;
   z-index: 1;
   background: rgba(0, 0, 0, 0.6);
+}
+
+/* Certifications: normalize the mixed-source cert images to a uniform
+   white tile (contain, so nothing is cropped). Scoped to #education so
+   the Projects grid is unaffected. */
+#education .portfolio .portfolio-wrap img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background: #fff;
+  padding: 12px;
 }
 
 .portfolio .portfolio-wrap::before {
@@ -1101,4 +1181,19 @@ section .container {
     right: 0;
     transform: translateX(-50%);
   }
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+  padding: 24px 0;
+  text-align: center;
+  color: #9fb2c4;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#footer p {
+  margin: 0;
 }

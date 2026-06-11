@@ -1,1 +1,4 @@
 .DS_Store
+
+# Local dev prototype — not part of the published site
+prototype/
