@@ -59,6 +59,19 @@
     else { location.hash = hash; }      // graceful fallback
   }
 
+  // Close main.js's mobile hamburger menu. We intercept nav clicks below with
+  // stopImmediatePropagation (to open a graph node instead of routing to a
+  // legacy section), which prevents main.js from closing the menu itself — so
+  // we replicate its close here, otherwise the menu stays open over the panel.
+  function closeMobileNav() {
+    if (!document.body.classList.contains("mobile-nav-active")) return;
+    document.body.classList.remove("mobile-nav-active");
+    var ti = document.querySelector(".mobile-nav-toggle i");
+    if (ti) { ti.classList.remove("icofont-close"); ti.classList.add("icofont-navigation-menu"); }
+    var ov = document.querySelector(".mobile-nav-overly");
+    if (ov) ov.style.display = "none";
+  }
+
   // Which top-nav item a node corresponds to (root → About, branch → its own
   // section, leaf → its parent branch's section). Used to keep the nav's
   // .active highlight in sync while the graph — not main.js — drives navigation.
@@ -482,6 +495,7 @@
       var nid = NAV_TO_NODE[a.getAttribute("href")];
       if (!nid) return;  // e.g. #header → fall through to goHome
       e.preventDefault(); e.stopImmediatePropagation();
+      closeMobileNav();  // dismiss the hamburger menu we just intercepted from
       var n = liveNode(nid);
       if (n) handleNodeClick(n);
     }, true);
