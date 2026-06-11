@@ -37,7 +37,7 @@
   var NAV_TO_NODE = {
     "#about": "me", "#contact": "me",
     "#experience": "b-exp", "#skills": "b-skl", "#portfolio": "b-prj",
-    "#blog": "b-blog", "#research": "b-rsr", "#education": "b-edu"
+    "#blog": "b-blog", "#research": "b-rsr", "#certifications": "b-cert", "#education": "b-edu"
   };
 
   function nodeColor(n) {
@@ -51,6 +51,24 @@
   function goToSection(hash) {
     if (window.showSection) window.showSection(hash);
     else { location.hash = hash; }      // graceful fallback
+  }
+
+  // Which top-nav item a node corresponds to (root → About, branch → its own
+  // section, leaf → its parent branch's section). Used to keep the nav's
+  // .active highlight in sync while the graph — not main.js — drives navigation.
+  function navHashForNode(node) {
+    if (!node) return null;
+    if (node.type === "root") return "#about";
+    if (node.type === "branch") return node.section || null;
+    var p = node.parent && NODE_BY_ID[node.parent];
+    return (p && p.section) || null;
+  }
+  function setActiveNav(hash) {
+    document.querySelectorAll(".nav-menu .active, .mobile-nav .active")
+      .forEach(function (li) { li.classList.remove("active"); });
+    if (!hash) return;
+    document.querySelectorAll('.nav-menu a[href="' + hash + '"], .mobile-nav a[href="' + hash + '"]')
+      .forEach(function (a) { var li = a.closest("li"); if (li) li.classList.add("active"); });
   }
 
   // resolve an id to the *live* graph node (carries x/y after layout);
@@ -168,7 +186,7 @@
       });
     });
   }
-  function closePanel() { if (panel) panel.classList.remove("open"); selectedId = null; highlightNodes = new Set(); highlightLinks = new Set(); }
+  function closePanel() { if (panel) panel.classList.remove("open"); selectedId = null; highlightNodes = new Set(); highlightLinks = new Set(); setActiveNav("#header"); }
 
   /* ============================================================
      The force-graph canvas + deterministic ordered layout
@@ -236,6 +254,7 @@
     Graph.centerAt(node.x, node.y, 600);
     Graph.zoom(node.type === "root" ? 2.2 : node.type === "branch" ? 1.7 : 3.0, 600);
     openPanel(node);
+    setActiveNav(navHashForNode(node));   // keep top-nav highlight in sync
     trackProgress(node);
   }
 
@@ -366,6 +385,10 @@
     panelBody = document.getElementById("gh-panel-body");
     var closeBtn = document.querySelector("#gh-panel .gh-close");
     if (closeBtn) closeBtn.addEventListener("click", closePanel);
+    // Esc closes the detail panel (expected gesture for a slide-over)
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && panel && panel.classList.contains("open")) closePanel();
+    });
 
     setupGamification();
     buildList();

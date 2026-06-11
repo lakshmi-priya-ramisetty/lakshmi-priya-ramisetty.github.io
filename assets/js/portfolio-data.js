@@ -30,7 +30,7 @@ window.PORTFOLIO = {
     { id: "b-skl",  type: "branch", label: "Skills",         section: "#skills" },
     { id: "b-prj",  type: "branch", label: "Projects",       section: "#portfolio" },
     { id: "b-blog", type: "branch", label: "Blog",           section: "#blog" },
-    { id: "b-cert", type: "branch", label: "Certifications", section: "#portfolio" },
+    { id: "b-cert", type: "branch", label: "Certifications", section: "#certifications" },
     { id: "b-edu",  type: "branch", label: "Education",      section: "#education" },
 
     // ---- Experience leaves (ordered most-recent first) ----
