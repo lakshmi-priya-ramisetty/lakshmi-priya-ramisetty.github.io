@@ -261,6 +261,7 @@
   }
   function finishPanel() {
     panel.classList.add("open");
+    document.body.classList.add("gh-panel-open");   // lets CSS hide the mobile hamburger so it doesn't clash with the panel's ×
     var hint = document.getElementById("gh-hint"); if (hint) hint.style.opacity = "0";
     // branch-overview entries open the matching leaf panel — never leave the graph
     panelBody.querySelectorAll("a[data-node]").forEach(function (a) {
@@ -273,6 +274,7 @@
   }
   function closePanel() {
     if (panel) panel.classList.remove("open");
+    document.body.classList.remove("gh-panel-open");
     selectedId = null; highlightNodes = new Set(); highlightLinks = new Set();
     setActiveNav("#header");
     setHash("");                          // drop the deep-link hash on close
@@ -319,11 +321,29 @@
     layoutBBox = { minX: Math.min.apply(null, xs), maxX: Math.max.apply(null, xs), minY: Math.min.apply(null, ys), maxY: Math.max.apply(null, ys) };
   }
 
+  // visible viewport size — prefer visualViewport (the actual on-screen width),
+  // which matches the #graph-hero container. innerWidth / clientWidth can report
+  // a wider *layout* viewport, which would size the canvas too wide and push the
+  // graph off-centre to the right.
+  function vpW() { return Math.round((window.visualViewport && window.visualViewport.width) || document.documentElement.clientWidth || window.innerWidth); }
+  function vpH() { return Math.round((window.visualViewport && window.visualViewport.height) || document.documentElement.clientHeight || window.innerHeight); }
+
   function fitView(ms) {
     if (!layoutBBox) return;
+    var vw = vpW(), vh = vpH();
+    // Phones: a portrait viewport can't hold the whole radial web without tiny,
+    // colliding labels. Centre on the root at a comfortable zoom so the hub +
+    // branch ring read clearly; the visitor drags / pinches out to the leaves.
+    if (vw < 768) {
+      var R = Math.max(layoutBBox.maxX, -layoutBBox.minX, layoutBBox.maxY, -layoutBBox.minY) + 40;
+      var zFit = (Math.min(vw, vh) / 2) / R;
+      Graph.centerAt(0, 0, ms || 0);
+      Graph.zoom(Math.max(0.62, Math.min(zFit * 1.35, 1.1)), ms || 0);
+      return;
+    }
     var pad = 150;
     var bw = (layoutBBox.maxX - layoutBBox.minX) || 1, bh = (layoutBBox.maxY - layoutBBox.minY) || 1;
-    var z = Math.min((window.innerWidth - pad * 2) / bw, (window.innerHeight - pad * 2) / bh);
+    var z = Math.min((vw - pad * 2) / bw, (vh - pad * 2) / bh);
     Graph.centerAt((layoutBBox.minX + layoutBBox.maxX) / 2, (layoutBBox.minY + layoutBBox.maxY) / 2, ms || 0);
     Graph.zoom(Math.max(0.4, Math.min(z, 2)), ms || 0);
   }
@@ -442,11 +462,11 @@
     Graph.d3Force("center", null);
     layout();
     Graph.cooldownTicks(0);
-    Graph.width(window.innerWidth).height(window.innerHeight);
+    Graph.width(vpW()).height(vpH());
     fitView(0);
-    setTimeout(function () { fitView(0); }, 80);
+    setTimeout(function () { Graph.width(vpW()).height(vpH()); fitView(0); }, 80);
 
-    window.addEventListener("resize", function () { Graph.width(window.innerWidth).height(window.innerHeight); fitView(0); });
+    window.addEventListener("resize", function () { Graph.width(vpW()).height(vpH()); fitView(0); });
     // re-fit when the visitor returns to the home/graph view
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest('a[href="#header"], #header h1 a');
@@ -513,11 +533,13 @@
     buildList();
 
     var elem = document.getElementById("graph-hero");
-    var isSmall = window.matchMedia("(max-width: 768px)").matches;
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // only spin up the canvas when it will actually be shown
-    var graphActive = elem && typeof ForceGraph !== "undefined" && !isSmall && !reduced;
+    // spin up the canvas on every viewport (incl. phones) unless the visitor
+    // prefers reduced motion or ForceGraph failed to load — then the list shows.
+    var graphActive = elem && typeof ForceGraph !== "undefined" && !reduced;
     if (graphActive) {
+      // flips the mobile CSS from the no-JS list fallback to the live graph
+      document.body.classList.add("gh-graph-live");
       initGraph(elem);
       // desktop: a direct #section URL opens the matching graph node, not a legacy
       // section (main.js suppresses its on-load showSection in this case). If the

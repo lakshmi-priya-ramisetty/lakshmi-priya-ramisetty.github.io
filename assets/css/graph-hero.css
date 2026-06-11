@@ -187,13 +187,20 @@ body.section-active #gh-list { display: none; }
 #gh-list .gh-leaf .yr { color: var(--gh-teal); font-size: 12px; margin-left: 6px; }
 #gh-list .gh-leaf.flag b { color: var(--gh-amber); }
 
-/* On phones: swap the canvas for the list. Also the reduced-motion fallback. */
+/* On phones: show the interactive graph (graph-hero.js adds body.gh-graph-live
+   once the canvas boots). Without JS we fall back to the list and hide the
+   empty canvas. Hover tooltip + XP badge are dropped — no hover on touch and
+   the small viewport is better kept clear. */
 @media (max-width: 768px) {
-  body:not(.section-active) #graph-hero,
+  body:not(.gh-graph-live) #graph-hero { display: none; }
+  body:not(.section-active):not(.gh-graph-live) #gh-list { display: block; }
   body:not(.section-active) #gh-hint,
   #gh-tip,
   #gh-xp { display: none; }
-  body:not(.section-active) #gh-list { display: block; }
+
+  /* an open detail panel owns the top-right (its × button); hide the
+     hamburger so the two controls don't overlap */
+  body.gh-panel-open .mobile-nav-toggle { display: none; }
 
   /* compact mobile bar — name only; the hamburger handles nav */
   #header:not(.header-top) { padding: 12px 16px; }
