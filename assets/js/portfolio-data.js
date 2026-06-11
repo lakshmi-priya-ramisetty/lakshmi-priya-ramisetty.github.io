@@ -35,7 +35,7 @@ window.PORTFOLIO = {
 
     // ---- Experience leaves (ordered most-recent first) ----
     { id: "e-bluearc", type: "leaf", parent: "b-exp", flagged: true, order: 0, year: "2025 – now",
-      label: "BlueArc", tag: "Experience", flagTag: "Flagship",
+      label: "BlueArc", tag: "Experience", flagTag: "Experience",
       title: "Software Engineer — ML, AI & Graph", sub: "BlueArc", dates: "Feb 2025 – Present",
       bullets: [
         "Architected a risk-decisioning layer with drag-and-drop SQL/Python workflows, cutting policy deployment from months to hours.",
@@ -92,7 +92,7 @@ window.PORTFOLIO = {
       chips: ["Mamba", "Long-Sequence", "LLM"], url: "https://ieeexplore.ieee.org/document/11121101" },
 
     // ---- Skills leaves: new About-section focus areas + existing portfolio stack ----
-    { id: "s-genai", type: "leaf", parent: "b-skl", order: 0,
+    { id: "s-genai", type: "leaf", parent: "b-skl", order: 0, pin: true,
       label: "GenAI & Agents", tag: "Skills",
       title: "Generative AI & Agents", sub: "What I focus on most", dates: "",
       bullets: [

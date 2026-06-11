@@ -21,6 +21,12 @@
   var C = { bg: "#010e1b", green: "#12d640", amber: "#ffc107", teal: "#2ee6c0" };
   var SIZE = { root: 13, branch: 8, leaf: 5 };
 
+  // ---- small helpers (used by count-up, confetti, tooltip) ----
+  var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function nowMs() { return (window.performance && performance.now) ? performance.now() : 0; }
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
   // Defensive: data-supplied strings become href attributes below. Relative URLs
   // (projects/x.html, #about, /path) are fine; an explicit scheme must be one of
   // http(s)/mailto — anything else (javascript:, data:, vbscript:) is neutralised.
@@ -71,6 +77,25 @@
       .forEach(function (a) { var li = a.closest("li"); if (li) li.classList.add("active"); });
   }
 
+  // ---- deep links: a node ↔ a URL hash, so any panel is shareable ----
+  // branch/root use the friendly section hash (#experience); leaves use their
+  // own id (#e-bluearc) so the specific role/project/paper is addressable.
+  function hashForNode(node) {
+    if (!node) return "";
+    if (node.type === "leaf") return "#" + node.id;
+    return navHashForNode(node) || "#" + node.id;
+  }
+  function nodeIdFromHash(h) {
+    if (!h) return null;
+    if (NAV_TO_NODE[h]) return NAV_TO_NODE[h];
+    var id = h.charAt(0) === "#" ? h.slice(1) : h;
+    return NODE_BY_ID[id] ? id : null;
+  }
+  function setHash(h) {
+    try { history.replaceState(null, "", h || (location.pathname + location.search)); }
+    catch (e) { if (h) location.hash = h; }
+  }
+
   // resolve an id to the *live* graph node (carries x/y after layout);
   // falls back to the static data object before the graph is built.
   function liveNode(id) {
@@ -87,13 +112,71 @@
   function setupGamification() {
     var s = P.stats || {};
     var el = document.getElementById("gh-xp");
-    if (el) {
-      var stat = el.querySelectorAll(".stats b");
-      if (stat[0]) stat[0].textContent = s.years + "+";
-      if (stat[1]) stat[1].textContent = s.certs;
-      if (stat[2]) stat[2].textContent = s.papers;
-      if (stat[3]) stat[3].textContent = s.degrees;
+    if (!el) return;
+    var stat = el.querySelectorAll(".stats b");
+    var targets = [s.years || 0, s.certs || 0, s.papers || 0, s.degrees || 0];
+    var suffix = ["+", "", "", ""];
+    if (REDUCED) {
+      targets.forEach(function (v, i) { if (stat[i]) stat[i].textContent = v + suffix[i]; });
+    } else {
+      // count up from 0 — a small "live dashboard" touch
+      var start = nowMs(), dur = 900;
+      (function step() {
+        var p = clamp01((nowMs() - start) / dur), e = 1 - Math.pow(1 - p, 3);
+        for (var i = 0; i < targets.length; i++) if (stat[i]) stat[i].textContent = Math.round(targets[i] * e) + (p >= 1 ? suffix[i] : "");
+        if (p < 1) requestAnimationFrame(step);
+      })();
     }
+    updateXP();
+  }
+  // "Explored N%" — fills as the visitor opens leaf nodes (real progress, not decoration)
+  function updateXP() {
+    var el = document.getElementById("gh-xp"); if (!el) return;
+    var leaves = NODES.filter(function (n) { return n.type === "leaf"; });
+    var total = leaves.length || 1;
+    var seen = leaves.filter(function (n) { return visited.has(n.id); }).length;
+    var pct = Math.round(seen / total * 100);
+    var bar = el.querySelector(".gh-xp-bar i"); if (bar) bar.style.width = pct + "%";
+    var prog = el.querySelector(".gh-xp-prog b"); if (prog) prog.textContent = pct + "%";
+    if (pct >= 100) celebrate();
+  }
+
+  // ---- 100%-explored celebration: trophy toast + gold bar + confetti ----
+  var celebrated = false;
+  function celebrate() {
+    if (celebrated) return; celebrated = true;
+    fireToast("Completionist 🏆", "You explored the whole graph!");
+    var bar = document.querySelector("#gh-xp .gh-xp-bar"); if (bar) bar.classList.add("done");
+    var prog = document.querySelector("#gh-xp .gh-xp-prog"); if (prog) prog.innerHTML = "Explored <b>100%</b> — nicely done!";
+    if (!REDUCED) confettiBurst();
+  }
+  function confettiBurst() {
+    var cv = document.createElement("canvas");
+    cv.id = "gh-confetti";
+    cv.style.cssText = "position:fixed;inset:0;z-index:1001;pointer-events:none;";
+    document.body.appendChild(cv);
+    var ctx = cv.getContext("2d");
+    cv.width = window.innerWidth; cv.height = window.innerHeight;
+    var colors = [C.green, C.teal, C.amber, "#ffffff"], parts = [];
+    for (var i = 0; i < 150; i++) parts.push({
+      x: cv.width / 2 + (Math.random() - 0.5) * cv.width * 0.5,
+      y: -20 - Math.random() * cv.height * 0.25,
+      vx: (Math.random() - 0.5) * 4, vy: 2 + Math.random() * 5,
+      s: 4 + Math.random() * 6, rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.35,
+      c: colors[(Math.random() * colors.length) | 0]
+    });
+    var start = nowMs(), DUR = 2800;
+    (function frame() {
+      var t = nowMs() - start, fade = t > DUR - 700 ? clamp01((DUR - t) / 700) : 1;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      parts.forEach(function (p) {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.rot += p.vr;
+        ctx.save(); ctx.globalAlpha = fade; ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * 0.6); ctx.restore();
+      });
+      if (t < DUR) requestAnimationFrame(frame);
+      else if (cv.parentNode) cv.parentNode.removeChild(cv);
+    })();
   }
   var visited = new Set(), earned = new Set();
   function fireToast(title, desc) {
@@ -106,6 +189,7 @@
   }
   function trackProgress(node) {
     visited.add(node.id);
+    updateXP();
     if (window.dataLayer) window.dataLayer.push({ event: "graph_node_click", nodeId: node.id });
     if (node.flagged && !earned.has("deepdive")) { earned.add("deepdive"); fireToast("Deep Diver", "You found a flagship achievement."); }
     var branches = NODES.filter(function (n) { return n.type === "leaf" && visited.has(n.id); }).map(function (n) { return n.parent; });
@@ -122,11 +206,11 @@
     if (node.type === "root" && node.about) {
       var a = node.about;
       html = '<div class="gh-about">';
-      if (a.photo) html += '<img class="gh-photo" src="' + a.photo + '" alt="' + String(node.label).replace(/\n/g, " ") + '">';
-      html += "<h2>" + String(node.label).replace(/\n/g, " ") + "</h2>";
-      if (node.role) html += '<div class="sub">' + node.role + "</div>";
-      if (a.bio) html += '<p class="gh-bio">' + a.bio + "</p>";
-      if (a.interests && a.interests.length) html += '<div class="chips">' + a.interests.map(function (c) { return "<span>" + c + "</span>"; }).join("") + "</div>";
+      if (a.photo) html += '<img class="gh-photo" src="' + safeUrl(a.photo) + '" alt="' + esc(String(node.label).replace(/\n/g, " ")) + '">';
+      html += "<h2>" + esc(String(node.label).replace(/\n/g, " ")) + "</h2>";
+      if (node.role) html += '<div class="sub">' + esc(node.role) + "</div>";
+      if (a.bio) html += '<p class="gh-bio">' + esc(a.bio) + "</p>";
+      if (a.interests && a.interests.length) html += '<div class="chips">' + a.interests.map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") + "</div>";
       if (a.contact) {
         var ct = a.contact;
         html += '<div class="gh-contact">';
@@ -145,13 +229,13 @@
     // ---- branch node: in-graph overview of its leaves (no routing out) ----
     if (node.type === "branch") {
       var leaves = NODES.filter(function (n) { return n.parent === node.id; }).sort(function (x, y) { return (x.order || 0) - (y.order || 0); });
-      html = '<span class="tag">' + node.label + "</span>";
-      html += "<h2>" + node.label + "</h2>";
+      html = '<span class="tag">' + esc(node.label) + "</span>";
+      html += "<h2>" + esc(node.label) + "</h2>";
       html += '<ul class="gh-branch-list">' + leaves.map(function (l) {
-        return '<li><a data-node="' + l.id + '"' + (l.flagged ? ' class="flag"' : "") + ">" +
-          "<b>" + (l.title || l.label) + "</b>" +
-          (l.year ? '<span class="yr">' + l.year + "</span>" : "") +
-          (l.sub ? '<span class="sb">' + l.sub + "</span>" : "") + "</a></li>";
+        return '<li><a data-node="' + esc(l.id) + '"' + (l.flagged ? ' class="flag"' : "") + ">" +
+          "<b>" + esc(l.title || l.label) + "</b>" +
+          (l.year ? '<span class="yr">' + esc(l.year) + "</span>" : "") +
+          (l.sub ? '<span class="sb">' + esc(l.sub) + "</span>" : "") + "</a></li>";
       }).join("") + "</ul>";
       panelBody.innerHTML = html;
       finishPanel();
@@ -163,13 +247,14 @@
     // back link up to the parent branch (data-node is wired in finishPanel to
     // re-open that node), so a leaf detail can return to its branch overview.
     var parent = node.parent && NODE_BY_ID[node.parent];
-    if (parent) html += '<a class="gh-back" data-node="' + parent.id + '" aria-label="Back to ' + String(parent.label).replace(/\n/g, " ") + '" title="Back to ' + String(parent.label).replace(/\n/g, " ") + '">&#8249;</a>';
-    html += '<span class="tag' + (flagged ? " flag" : "") + '">' + (flagged ? (node.flagTag || "Flagged") : node.tag) + "</span>";
-    html += "<h2>" + (node.title || node.label) + "</h2>";
-    if (node.sub) html += '<div class="sub">' + node.sub + "</div>";
-    if (node.dates) html += '<div class="dates">' + node.dates + "</div>";
-    if (node.bullets && node.bullets.length) html += "<ul>" + node.bullets.map(function (b) { return "<li>" + b + "</li>"; }).join("") + "</ul>";
-    if (node.chips && node.chips.length) html += '<div class="chips">' + node.chips.map(function (c) { return "<span>" + c + "</span>"; }).join("") + "</div>";
+    if (parent) { var pLabel = esc(String(parent.label).replace(/\n/g, " ")); html += '<a class="gh-back" data-node="' + esc(parent.id) + '" aria-label="Back to ' + pLabel + '" title="Back to ' + pLabel + '">&#8249;</a>'; }
+    var tagText = flagged ? (node.flagTag || "Flagged") : node.tag;
+    if (tagText) html += '<span class="tag' + (flagged ? " flag" : "") + '">' + esc(tagText) + "</span>";
+    html += "<h2>" + esc(node.title || node.label) + "</h2>";
+    if (node.sub) html += '<div class="sub">' + esc(node.sub) + "</div>";
+    if (node.dates) html += '<div class="dates">' + esc(node.dates) + "</div>";
+    if (node.bullets && node.bullets.length) html += "<ul>" + node.bullets.map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>";
+    if (node.chips && node.chips.length) html += '<div class="chips">' + node.chips.map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") + "</div>";
     if (node.url) html += '<a class="full" href="' + safeUrl(node.url) + '" target="_blank" rel="noopener">Open ↗</a>';
     panelBody.innerHTML = html;
     finishPanel();
@@ -186,7 +271,12 @@
       });
     });
   }
-  function closePanel() { if (panel) panel.classList.remove("open"); selectedId = null; highlightNodes = new Set(); highlightLinks = new Set(); setActiveNav("#header"); }
+  function closePanel() {
+    if (panel) panel.classList.remove("open");
+    selectedId = null; highlightNodes = new Set(); highlightLinks = new Set();
+    setActiveNav("#header");
+    setHash("");                          // drop the deep-link hash on close
+  }
 
   /* ============================================================
      The force-graph canvas + deterministic ordered layout
@@ -255,7 +345,26 @@
     Graph.zoom(node.type === "root" ? 2.2 : node.type === "branch" ? 1.7 : 3.0, 600);
     openPanel(node);
     setActiveNav(navHashForNode(node));   // keep top-nav highlight in sync
+    setHash(hashForNode(node));           // make the open panel shareable
     trackProgress(node);
+  }
+
+  /* ---------- hover preview tooltip ---------- */
+  function showTip(node) {
+    var tip = document.getElementById("gh-tip"); if (!tip) return;
+    if (!node || REDUCED || !Graph) { tip.classList.remove("show"); return; }
+    var title = node.title || String(node.label).replace(/\n/g, " ");
+    var sub = node.sub || (node.type === "branch"
+      ? NODES.filter(function (n) { return n.parent === node.id; }).length + " items"
+      : (node.type === "root" ? node.role : node.tag)) || "";
+    tip.innerHTML = '<div class="tip-t">' + esc(title) + "</div>" +
+      (sub ? '<div class="tip-s">' + esc(sub) + "</div>" : "") +
+      (node.year ? '<div class="tip-y">' + esc(node.year) + "</div>" : "");
+    var sc = Graph.graph2ScreenCoords(node.x, node.y);
+    var r = SIZE[node.type] || SIZE.leaf;
+    tip.style.left = sc.x + "px";
+    tip.style.top = (sc.y - r - 10) + "px";
+    tip.classList.add("show");
   }
 
   function initGraph(elem) {
@@ -265,7 +374,10 @@
       .nodeId("id")
       .nodeLabel(function () { return ""; })
       .nodeRelSize(1)
-      .linkColor(function (l) { return highlightLinks.has(l) ? "rgba(18,214,64,0.85)" : "rgba(120,150,175,0.18)"; })
+      .linkColor(function (l) {
+        return highlightLinks.has(l) ? "rgba(18,214,64,0.85)" : "rgba(120,150,175,0.18)";
+      })
+      .linkCurvature(0.06)        // a faint arc — reads more like a neural web than a wheel
       .linkWidth(function (l) { return highlightLinks.has(l) ? 2 : 1; })
       .linkDirectionalParticles(function (l) { return highlightLinks.has(l) ? 3 : 0; })
       .linkDirectionalParticleWidth(2)
@@ -286,7 +398,10 @@
         ctx.restore();
 
         var hovered = node.id === hoveredId;
-        var showLabel = node.type !== "leaf" || node.flagged || hovered || node.id === selectedId || highlightNodes.has(node.id) || globalScale > 1.7;
+        // labels: always for non-leaves, flagged + pinned high-signal leaves, the
+        // hovered/selected/highlighted node, or once zoomed in.
+        var showLabel = node.type !== "leaf" || node.flagged || node.pin || hovered ||
+          node.id === selectedId || highlightNodes.has(node.id) || globalScale > 1.7;
         if (showLabel) {
           var pxMain = (node.type === "root" ? 15 : node.type === "branch" ? 13 : 11) / globalScale;
           var gap = 4 / globalScale, lineH = pxMain * 1.05;
@@ -315,7 +430,11 @@
         ctx.beginPath(); ctx.arc(node.x, node.y, r, 0, 2 * Math.PI); ctx.fill();
       })
       .onNodeClick(handleNodeClick)
-      .onNodeHover(function (node) { hoveredId = node ? node.id : null; elem.style.cursor = node ? "pointer" : "grab"; })
+      .onNodeHover(function (node) {
+        hoveredId = node ? node.id : null;
+        elem.style.cursor = node ? "pointer" : "grab";
+        showTip(node);
+      })
       .onBackgroundClick(closePanel);
 
     Graph.d3Force("charge", null);
@@ -403,7 +522,7 @@
       // desktop: a direct #section URL opens the matching graph node, not a legacy
       // section (main.js suppresses its on-load showSection in this case). If the
       // hash maps to nothing, the graph simply stays at home — still sealed.
-      var nid = NAV_TO_NODE[location.hash];
+      var nid = nodeIdFromHash(location.hash);
       if (nid) setTimeout(function () { var n = liveNode(nid); if (n) handleNodeClick(n); }, 120);
     }
   }

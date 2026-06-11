@@ -52,6 +52,31 @@ button:focus-visible,
   border-radius: 2px;
 }
 
+/* Skip-to-content link: hidden until keyboard-focused */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: #12d640;
+  color: #010e1b;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 8px;
+  color: #010e1b;
+}
+
+.portfolio-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
 }
@@ -207,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
   background: none;
   font-size: 24px;
   transition: all 0.4s;
-  outline: none !important;
+  outline: none;
   line-height: 1;
   cursor: pointer;
   text-align: right;
@@ -226,7 +251,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 9999;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.7);
-  transition: ease-in-out 0s;
+  transition: all ease-in-out 0.3s;
   opacity: 0;
   visibility: hidden;
   border-radius: 10px;
@@ -678,7 +703,7 @@ section .container {
   background: #09203a;
   padding: 40px 40px;
   transition: all ease-in-out 0.3s;
-  margin: 10px
+  margin: 10px;
 }
 
 .services .icon-box .icon {
@@ -1156,4 +1181,19 @@ section .container {
     right: 0;
     transform: translateX(-50%);
   }
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+  padding: 24px 0;
+  text-align: center;
+  color: #9fb2c4;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#footer p {
+  margin: 0;
 }

@@ -16,6 +16,18 @@
   <title>Lakshmi Priya Ramisetty — AI/ML Engineer</title>
   <meta content="Lakshmi Priya Ramisetty — AI/ML Engineer building LLM agents and ML models for fraud, KYB and risk decisioning. Knowledge graphs, RAG, model evaluation. Published GenAI researcher." name="description">
   <meta content="AI/ML Engineer, LLM agents, knowledge graphs, RAG, machine learning, data engineering, MLOps, GenAI, fraud, KYB, risk decisioning" name="keywords">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lakshmi-priya-ramisetty.github.io/">
+  <meta property="og:title" content="Lakshmi Priya Ramisetty — AI/ML Engineer">
+  <meta property="og:description" content="AI/ML Engineer building LLM agents and ML models for fraud, KYB and risk decisioning. Knowledge graphs, RAG, model evaluation. Published GenAI researcher.">
+  <meta property="og:image" content="https://lakshmi-priya-ramisetty.github.io/assets/img/page/profile.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lakshmi Priya Ramisetty — AI/ML Engineer">
+  <meta name="twitter:description" content="AI/ML Engineer building LLM agents and ML models for fraud, KYB and risk decisioning. Knowledge graphs, RAG, model evaluation. Published GenAI researcher.">
+  <meta name="twitter:image" content="https://lakshmi-priya-ramisetty.github.io/assets/img/page/profile.png">
+
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"
         integrity="sha384-gSJzCOtDZjCJLnLHBld7v4xJStn/Zm1tlIRbF7KfFAnCCqT4wrc6CpihUEUbG/ab" crossorigin="anonymous">
 
@@ -52,6 +64,7 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BB8W2X"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  <a href="#main" class="skip-link">Skip to content</a>
   <!-- ======= Header ======= -->
   <header id="header" class="header-tops">
 
@@ -91,6 +104,8 @@
     </div>
   </header><!-- End Header -->
 
+  <main id="main">
+
   <!-- ======= Knowledge-Graph Hero (home view) ======= -->
   <div id="graph-hero" role="img" aria-label="Interactive knowledge graph of Lakshmi Priya Ramisetty's experience, skills, projects, research and education. A text list of the same content follows."></div>
 
@@ -99,11 +114,16 @@
 
   <div id="gh-hint"><b>Drag</b> to explore · <b>scroll</b> to zoom · <b>click</b> a node</div>
 
+  <!-- floating hover preview (positioned in JS) -->
+  <div id="gh-tip" role="tooltip" aria-hidden="true"></div>
+
   <div id="gh-xp">
     <div class="gh-xp-title">At a glance</div>
     <div class="stats">
       <div><b>—</b> yrs exp</div><div><b>—</b> GCP certs</div><div><b>—</b> papers</div><div><b>—</b> degrees</div>
     </div>
+    <div class="gh-xp-bar" aria-hidden="true"><i></i></div>
+    <div class="gh-xp-prog">Explored <b>0%</b> of the graph</div>
   </div>
 
   <aside id="gh-panel" role="dialog" aria-modal="false" aria-label="Details">
@@ -236,7 +256,7 @@
       <div class="row">
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
           <div class="col-md-4 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="padding:0px 0px;padding-bottom: 5px;flex: 1;">
-              <img src="assets/img/page/yeshiva-university.png" class="img-fluid" alt="">
+              <img src="assets/img/page/yeshiva-university.png" class="img-fluid" alt="Yeshiva University logo">
               <p style="text-align:left;color:#fff;padding: 5px 10px;"><em>MS in Artificial Intelligence</em></p>
               <h5 style="text-align:left;padding: 0px 10px;">Aug 2023 - Dec 2024 </h5>
               <h6 style="text-align:left;color:#fff;padding: 0px 10px;">Relevant Coursework</h6>
@@ -249,7 +269,7 @@
               </ul>
           </div>
           <div class="col-md-4 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="padding:0px 0px;padding-bottom: 5px;flex: 1;">
-              <img src="assets/img/page/iiitb.png" class="img-fluid" alt="">
+              <img src="assets/img/page/iiitb.png" class="img-fluid" alt="IIIT Bangalore logo">
               <p style="text-align:left;color:#fff;padding: 5px 10px;"><em>Executive Post Graduate Programme in Data Science (Major in Data Engineering)</em></p>
               <h5 style="text-align:left;padding: 0px 10px;">Jul 2021 - Aug 2022</h5>
               <h6 style="text-align:left;color:#fff;padding: 0px 10px;">Relevant Coursework</h6>
@@ -260,7 +280,7 @@
               </ul>
           </div>
           <div class="col-md-4 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="padding:0px 0px;padding-bottom: 5px;flex: 1;">
-              <img src="assets/img/page/iiitb.png" class="img-fluid" alt="">
+              <img src="assets/img/page/iiitb.png" class="img-fluid" alt="IIIT Bangalore logo">
               <p style="text-align:left;color:#fff;padding: 5px 10px;"><em>Integrated MTech in Computer Science (Major in Data Science)</em></p>
               <h5 style="text-align:left;padding: 0px 10px;">Aug 2015 - Jun 2020</h5>
               <h6 style="text-align:left;color:#fff;padding: 0px 10px;">Relevant Coursework</h6>
@@ -515,9 +535,9 @@
       <div class="row portfolio-container">
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-dataengineering">
-          <center><h4>Information Retrieval</h4></center>
+          <h3 class="portfolio-title">Information Retrieval</h3>
           <div class="portfolio-wrap">
-            <img src="assets/img/page/ir-flowchart.png" class="img-fluid" alt="">
+            <img src="assets/img/page/ir-flowchart.png" class="img-fluid" alt="Information Retrieval project flowchart">
             <div class="portfolio-info">
               
               <div class="portfolio-links">
@@ -528,9 +548,9 @@
         </div>
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-datascience">
-          <center><h5>Video Generation with Diffusion Models</h5></center>
+          <h3 class="portfolio-title">Video Generation with Diffusion Models</h3>
           <div class="portfolio-wrap">
-            <img src="assets/img/page/videogen.png" class="img-fluid" alt="">
+            <img src="assets/img/page/videogen.png" class="img-fluid" alt="Video Generation with Diffusion Models project">
             <div class="portfolio-info">
               
               <div class="portfolio-links">
@@ -541,9 +561,9 @@
         </div>
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-dataengineering">
-          <center><h5>Blue Shield of California - Data Ingestion and Visualization</h5></center>
+          <h3 class="portfolio-title">Blue Shield of California - Data Ingestion and Visualization</h3>
           <div class="portfolio-wrap">
-            <img src="assets/img/page/iras.jpeg" class="img-fluid" alt="">
+            <img src="assets/img/page/iras.jpeg" class="img-fluid" alt="Blue Shield of California data ingestion and visualization project">
             <div class="portfolio-info">
               
               <div class="portfolio-links">
@@ -555,9 +575,9 @@
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-dataengineering">
           <!-- <br> -->
-          <center><h4>Provider Directory Mapping</h4></center>
+          <h3 class="portfolio-title">Provider Directory Mapping</h3>
           <div class="portfolio-wrap">
-            <img src="assets/img/page/gan.jpg" class="img-fluid" alt="">
+            <img src="assets/img/page/gan.jpg" class="img-fluid" alt="Provider Directory Mapping project">
             <div class="portfolio-info">
               <div class="portfolio-links">
                 <a href="projects/pdm.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
@@ -567,9 +587,9 @@
         </div>
 
         <div class="col-lg-4 col-md-6 portfolio-item filter-dataengineering">
-          <center><h5>Data Capture and Analysis of Cab Rides</h5></center>
+          <h3 class="portfolio-title">Data Capture and Analysis of Cab Rides</h3>
           <div class="portfolio-wrap">
-            <img src="assets/img/page/capture.png" class="img-fluid" alt="">
+            <img src="assets/img/page/capture.png" class="img-fluid" alt="Data Capture and Analysis of Cab Rides project">
             <div class="portfolio-info">
               
               <div class="portfolio-links">
@@ -623,7 +643,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6 blog-item">
         <div class="blog-wrap">
-          <img src="assets/img/page/jsonblog.png" class="img-fluid" alt="">
+          <img src="assets/img/page/jsonblog.png" class="img-fluid" alt="Handling large JSON files without fully loading them into memory">
           <div class="blog-info">
             <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/handling-large-json-files-without-fully-loading-them-into-memory-ce3d020a3f82" target="_blank" rel="noopener">Handling large JSON files without fully loading them into memory</a></h4>
             <!-- <p>Gain insights into the fundamentals of machine learning and its applications.</p> -->
@@ -633,7 +653,7 @@
 
       <div class="col-lg-4 col-md-6 blog-item">
         <div class="blog-wrap">
-          <img src="assets/img/page/tensorflow.png" class="img-fluid" alt="">
+          <img src="assets/img/page/tensorflow.png" class="img-fluid" alt="Installing TensorFlow-text on Mac M1/M2">
           <div class="blog-info">
             <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/how-to-install-tensorflow-text-on-mac-m1-m2-0bacb6fe83d1" target="_blank" rel="noopener">Tensorflow-text on Mac M1/M2</a></h4>
             <!-- <p>Explore the transformative impact of AI on the healthcare industry.</p> -->
@@ -643,7 +663,7 @@
 
       <div class="col-lg-4 col-md-6 blog-item">
         <div class="blog-wrap">
-          <img src="assets/img/page/errorrate.png" class="img-fluid" alt="" style="width:100%;object-fit:contain;background:#f5f1e8;">
+          <img src="assets/img/page/errorrate.png" class="img-fluid" alt="Your 0% error rate isn't telling you what you think" style="width:100%;object-fit:contain;background:#f5f1e8;">
           <div class="blog-info">
             <h4><a href="https://medium.com/@lakshmi_priya_ramisetty/your-0-error-rate-isnt-telling-you-what-you-think-552bb22c1b02" target="_blank" rel="noopener">Your 0% error rate isn't telling you what you think</a></h4>
           </div>
@@ -735,13 +755,13 @@
           <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
             <h4 style="text-align:left;color:#fff">Languages & Databases</h4>
                 <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg" alt="vectorlogo.zone" height="50" width="150">
-                  <img src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg" alt="vectorlogo.zone" height="50" width="120">
-                  <img src="assets/img/page/sql.png" alt="vectorlogo.zone" width="120" height="70">
-                  <img src="https://www.vectorlogo.zone/logos/scala-lang/scala-lang-ar21.svg" alt="vectorlogo.zone" height="50" width="150">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg" alt="vectorlogo.zone" width="90" height="70">
-                  <img src="https://www.vectorlogo.zone/logos/mysql/mysql-horizontal.svg" alt="vectorlogo.zone" height="70" width="130">
-                  <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-horizontal.svg" alt="vectorlogo.zone" height="50" width="190">
+                  <img src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg" alt="Python" height="50" width="150">
+                  <img src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg" alt="Java" height="50" width="120">
+                  <img src="assets/img/page/sql.png" alt="SQL" width="120" height="70">
+                  <img src="https://www.vectorlogo.zone/logos/scala-lang/scala-lang-ar21.svg" alt="Scala" height="50" width="150">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg" alt="R" width="90" height="70">
+                  <img src="https://www.vectorlogo.zone/logos/mysql/mysql-horizontal.svg" alt="MySQL" height="70" width="130">
+                  <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-horizontal.svg" alt="PostgreSQL" height="50" width="190">
 
                 </p>
             </div>
@@ -749,54 +769,54 @@
               <h4 style="text-align:left;color:#fff">Libraries & Frameworks</h4>
                 <p style="text-align:left;">
                   <img src="https://www.vectorlogo.zone/logos/palletsprojects_flask/palletsprojects_flask-ar21.svg" alt="Flask">
-                  <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="upload.wikimedia.org" width="90" height="70">
-                  <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/opencv/opencv-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/numpy/numpy-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg" alt="upload.wikimedia.org" width="90" height="70">
+                  <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg" alt="TensorFlow">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="scikit-learn" width="90" height="70">
+                  <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="PyTorch">
+                  <img src="https://www.vectorlogo.zone/logos/opencv/opencv-ar21.svg" alt="OpenCV">
+                  <img src="https://www.vectorlogo.zone/logos/numpy/numpy-ar21.svg" alt="NumPy">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg" alt="pandas" width="90" height="70">
               </p>
           </div>
           <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
             <h4 style="text-align:left;color:#fff">Cloud Tools</h4>
               <p style="text-align:left;">
-                <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="vectorlogo.zone">
-                <img src="assets/img/page/dataflow.webp" alt="vectorlogo.zone" width="120" height="70">
+                <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="Google Cloud">
+                <img src="assets/img/page/dataflow.webp" alt="Google Cloud Dataflow" width="120" height="70">
 
-                <img src="assets/img/page/bigquery.webp" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/vertex ai.jpeg" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/dialogflow.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/ccai.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/looker.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/pubsub.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/cloud sql.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/cloud build.png" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/firestore.jpeg" alt="vectorlogo.zone" width="120" height="70">
-                <img src="assets/img/page/gke.png" alt="vectorlogo.zone" width="120" height="70">
+                <img src="assets/img/page/bigquery.webp" alt="BigQuery" width="120" height="70">
+                <img src="assets/img/page/vertex ai.jpeg" alt="Vertex AI" width="120" height="70">
+                <img src="assets/img/page/dialogflow.png" alt="Dialogflow" width="120" height="70">
+                <img src="assets/img/page/ccai.png" alt="Contact Center AI" width="120" height="70">
+                <img src="assets/img/page/looker.png" alt="Looker" width="120" height="70">
+                <img src="assets/img/page/pubsub.png" alt="Pub/Sub" width="120" height="70">
+                <img src="assets/img/page/cloud sql.png" alt="Cloud SQL" width="120" height="70">
+                <img src="assets/img/page/cloud build.png" alt="Cloud Build" width="120" height="70">
+                <img src="assets/img/page/firestore.jpeg" alt="Firestore" width="120" height="70">
+                <img src="assets/img/page/gke.png" alt="Google Kubernetes Engine" width="120" height="70">
 
 
-                <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-ar21.svg" alt="vectorlogo.zone">
+                <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-ar21.svg" alt="Amazon AWS">
             </p>
         </div>
         <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
           <h4 style="text-align:left;color:#fff">Big Data, ETL & APIs</h4>
             <p style="text-align:left;">
-              <img src="https://www.vectorlogo.zone/logos/apache_spark/apache_spark-ar21.svg" alt="vectorlogo.zone">
-              <img src="https://www.vectorlogo.zone/logos/apache_beam/apache_beam-ar21.svg" alt="vectorlogo.zone">
+              <img src="https://www.vectorlogo.zone/logos/apache_spark/apache_spark-ar21.svg" alt="Apache Spark">
+              <img src="https://www.vectorlogo.zone/logos/apache_beam/apache_beam-ar21.svg" alt="Apache Beam">
 
-              <img src="assets/img/page/hadoop.png" alt="vectorlogo.zone" width="120" height="70">
-              <img src="assets/img/page/pyspark.png" alt="vectorlogo.zone" width="120" height="70">
+              <img src="assets/img/page/hadoop.png" alt="Apache Hadoop" width="120" height="70">
+              <img src="assets/img/page/pyspark.png" alt="PySpark" width="120" height="70">
 
 
-              <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-ar21.svg" alt="vectorlogo.zone">
-              <img src="https://www.vectorlogo.zone/logos/apache_hive/apache_hive-ar21.svg" alt="vectorlogo.zone">
+              <img src="https://www.vectorlogo.zone/logos/apache_kafka/apache_kafka-ar21.svg" alt="Apache Kafka">
+              <img src="https://www.vectorlogo.zone/logos/apache_hive/apache_hive-ar21.svg" alt="Apache Hive">
               
           </p>
       </div>
           <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
               <h4 style="text-align:left;color:#fff">Tools</h4>
                 <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="vectorlogo.zone">
+                  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="Git">
               </p>
           </div>
         </div>
@@ -860,6 +880,16 @@
 
   <!-- End Contact Section -->
 
+  </main><!-- #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <p>&copy; <span id="footer-year">2026</span> Lakshmi Priya Ramisetty</p>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -878,6 +908,7 @@
       typeSpeed: 65,
       backSpeed: 65
     });
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 
   <!-- Template Main JS File -->
