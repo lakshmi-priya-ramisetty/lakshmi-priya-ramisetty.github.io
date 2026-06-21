@@ -95,6 +95,7 @@
       <div class="social-links">
           <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" rel="noopener" class="linkedin"><i class="bx bxl-linkedin"></i></a>
           <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" rel="noopener" class="github"><i class="bx bxl-github"></i></a>
+          <a href="https://scholar.google.com/citations?user=q11ACLcAAAAJ&hl=en" target="_blank" rel="noopener" class="scholar" aria-label="Google Scholar"><i class="bx bxs-graduation"></i></a>
           <a href="mailto:lakshmipriya.ramisetty@gmail.com" class="google"><i class="bx bxl-google"></i></a>
           <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" rel="noopener" class="medium"><i class="bx bxl-medium"></i></a>
           <!-- <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" class="google"><i class="bx bxl-google"></i></a> -->
@@ -405,12 +406,15 @@
             <h5 style="text-align:left;">BlueArc</h5>
             <p style="text-align:left;color:#fff">Feb 2025 - Present<em></em></p>
             <ul style="text-align:left;">
-              <li>Built probabilistic graph models to uncover hidden business relationships, improving fraud/risk scoring.</li>
-                <li>Used text and image embeddings to analyze product and website data, identifying businesses reusing identical products across domains
-                  and ads, and flagging impersonation or fraudulent activity.</li>
-              <li>Built a risk-decisioning layer with drag-and-drop SQL/Python workflow generation, reducing manual coding and accelerating what-if
-                fraud/risk simulations.</li>
-              <li>Orchestrated agentic workflows to unify multimodal business data, feeding risk models, improving risk classification accuracy by 38%.</li>
+              <li>Partnered with the risk and investigations team to turn a manual, ambiguous fraud-review process into a multi-agent
+                decisioning platform on LangGraph and Google ADK that synthesizes web and graph signals into structured risk
+                assessments, automating ~3,000 investigations per week and cutting investigation time ~70%.</li>
+              <li>Architected an ML risk-scoring engine combining gradient-boosted trees and Probabilistic Graphical Models to score
+                thousands of entities from 2M+ monthly business signals, cutting false positives ~40% vs. rules-based baselines.</li>
+              <li>Engineered a multimodal text+image embedding system to detect duplication, counterfeit listings, and impersonation
+                across ad networks, publishers, marketplaces, and merchants.</li>
+              <li>Built the evaluation and human-in-the-loop layer, defining decision-quality metrics with investigators, scoring every
+                agent decision against them, and routing low-confidence cases back for human review.</li>
             </ul>
           </div>
           <div class="col-lg-12" data-aos="fade-up">
@@ -419,16 +423,12 @@
               <h5 style="text-align:left;">InTheLoop INC</h5>
               <p style="text-align:left;color:#fff">Oct 2024 - Jan 2025<em></em></p>
               <ul style="text-align:left;">
-                <li>Fine-tuned Vision-Language Models (VLMs), such as Qwen2-VL and Gemini 1.5 Pro, using Supervised Fine-Tuning (SFT) techniques to
-                  create a fabric damage detection system and integrated dynamic pricing strategies to adjust item pricing based on their damage levels.</li>
-                  <li>Optimized Qwen2-VL by modifying DeepSpeed’s pipeline to support Vision-Language Models (VLMs), improving inference speed by 2.5x.</li>
-                  <li>Accelerated ML model deployment and lifecycle management using Vertex AI to automate model training, fine-tuning, and deployment.</li>
-                  <li>Automated GCP infrastructure provisioning using Terraform to manage and deploy resources for data engineering and ML workflows.</li>
-                <li>Designed a scalable pipeline using Apache Beam, Dataflow, to scrape and download over 125,000 images from the web, streamlining
-                  large-scale data collection with a microservices architecture</li>
-                <li>Leveraged DINO v2 and KMeans clustering to group images based on feature embeddings, followed by background removal</li>
-                <li>Utilized Gemini 1.5 Pro for good and bad labelling classification to enhance background removal accuracy, refining dataset quality
-                  through prompt-based fine-tuning</li>
+                <li>Built a distributed image preprocessing pipeline on Dataflow to ingest and transform 120K+ multimodal assets for
+                  Vision-Language Model (VLM) training.</li>
+                <li>Fine-tuned Qwen2-VL and Gemini 1.5 Flash via SFT to build a fabric damage detection system with automated dynamic
+                  pricing, lifting detection accuracy from 64% zero-shot to 88% after fine-tuning.</li>
+                <li>Extended DeepSpeed pipeline parallelism to support multimodal Vision-Language inputs it did not handle natively,
+                  enabling 2.5x faster multi-GPU Qwen2-VL training.</li>
               </ul>
             </div>
             <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -450,10 +450,9 @@
                 <h5 style="text-align:left;">FinServ Experts</h5>
                 <p style="text-align:left;color:#fff">May 2024 - Aug 2024<em></em></p>
                 <ul style="text-align:left;">
-                  <li>Fine-tuned state-of-the-art Large Language Models (LLMs) like Llama2 and Mistral using parameter-efficient techniques such as LoRA and
-                    QLoRA, achieving highly accurate and contextually relevant responses for financial applications.</li>
-                    <li>Created custom, domain-specific datasets tailored to financial use cases, including investment analysis, risk assessment, and regulatory
-                      compliance, optimizing model performance and reducing false positive rates by 35% in critical financial workflows.</li>
+                  <li>Developed a RAG pipeline for enterprise chatbots, achieving 92% factual accuracy and sub-5% hallucination rates.</li>
+                  <li>Fine-tuned Llama 2 and Mistral with LoRA/QLoRA for policy-aligned financial responses, then cut p95 latency 31%
+                    (3.6s to 2.5s) by serving the merged models 4-bit quantized on vLLM.</li>
                 </ul>
               </div>
               <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -461,18 +460,12 @@
                 <h5 style="text-align:left;">Egen</h5>
                 <p style="text-align:left;color:#fff">Mar 2021 - Jul 2023<em></em></p>
                 <ul style="text-align:left;">
-                  <li>Developed several ETL pipelines leveraging Dataflow, Pub/Sub, Dataproc and BigQuery, processing and harmonizing large datasets 50%
-                    faster than the industry standard.</li>
-                  <li>Led the development of a comprehensive end-to-end healthcare demonstration using 7+ GCP tools, including BigQuery, BigQuery ML, Vertex AI, and Dialogflow, showcased at Google’s headquarters, illustrating advanced data analytics and AI capabilities.</li>
-                  <li>Migrated 8 dashboards from Tableau to Looker, creating LookML models from scratch that significantly enhanced data visualization.</li>
-                    <li>Established standards for hosting, CI/CD pipelines, Docker containerization, and Kubernetes orchestration. Implemented secure
-                      networking with GCP VPC, subnets, firewall rules, and IAM role-based access controls to enhance efficiency and security</li>
-                  <li>Achieved a 70% reduction in pipeline execution time by implementing a decision tree harmonization strategy, optimizing data
-                    processing workflows.</li>
-                  <li>Ingested and processed 10 TB of healthcare data comprising over 400 million records in BigQuery for high-volume analysis.</li>
-                  <li>Optimized SQL query performance on large datasets using database partitioning, reducing execution time from 10 minutes to 2 minutes.</li>
-                  <li>Utilized Google Cloud Workflows to orchestrate complex ETL pipelines, incorporating robust error handling and automated retry
-                    mechanisms to ensure reliability and achieving an impressive average uptime of 99.9%.</li>
+                  <li>Scoped and delivered a high-throughput data ingestion framework directly with Blue Shield of California, automating
+                    ingestion of TIC-compliant MRF files from major insurers via Dataflow and BigQuery for cost-transparency analytics.</li>
+                  <li>Tuned Dataflow parallelism, worker autoscaling, and fusion, boosting batch throughput ~70% across 400M+ records (~100 TB).</li>
+                  <li>Delivered a FHIR-compliant pipeline for Reltio, mapping provider directory data through Pub/Sub and Dataflow into
+                    Google Cloud FHIR Store via Whistle (WSTL) mappings.</li>
+                  <li>Built and presented an end-to-end healthcare analytics demo with BigQuery ML, Vertex AI, Dialogflow, and Document AI at Google HQ.</li>
                 </ul>
               </div>
               <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -480,9 +473,10 @@
                 <h5 style="text-align:left;">Accenture</h5>
                 <p style="text-align:left;color:#fff"><em>Jan 2020 - Jul 2020</em></p>
                 <ul style="text-align:left;">
-                  <li>Automated document processing using Tesseract OCR, reducing processing time to 2 seconds per document and enhancing data extraction accuracy by 30%.</li>
-                  <li>Conducted A/B tests to evaluate the effectiveness of different OCR algorithms, resulting in a 25% improvement in data extraction accuracy and efficiency.</li>
-                  <li>Researched reinforcement learning techniques, including Q-Learning, DQN, and PPO, for Collaborative Robots (CoBots) to enhance adaptive behavior and interaction, supported by a comprehensive literature review and detailed software bot taxonomy.</li>
+                  <li>Automated document processing with Tesseract OCR (~2s/document), improving extraction accuracy 30% through
+                    A/B-tested preprocessing and adaptive thresholding.</li>
+                  <li>Evaluated reinforcement-learning methods (Q-Learning, DQN, PPO) for collaborative-robot (CoBot) adaptability and
+                    built a bot taxonomy to guide model selection.</li>
                 </ul>
               </div>
               <!-- <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -853,6 +847,7 @@
             <div class="social-links">
               <a href="https://www.linkedin.com/in/lakshmi-priya-ramisetty/" target="_blank" rel="noopener" class="linkedin"><i class="bx bxl-linkedin"></i></a>
               <a href="https://github.com/lakshmi-priya-ramisetty" target="_blank" rel="noopener" class="github"><i class="bx bxl-github"></i></a>
+              <a href="https://scholar.google.com/citations?user=q11ACLcAAAAJ&hl=en" target="_blank" rel="noopener" class="scholar" aria-label="Google Scholar"><i class="bx bxs-graduation"></i></a>
               <a href="mailto:lakshmipriya.ramisetty@gmail.com" class="google"><i class="bx bxl-google"></i></a>
               <a href="https://medium.com/@lakshmi_priya_ramisetty" target="_blank" rel="noopener" class="medium"><i class="bx bxl-medium"></i></a>
             </div>
