@@ -38,44 +38,45 @@ window.PORTFOLIO = {
       label: "BlueArc", tag: "Experience", flagTag: "Experience",
       title: "Software Engineer — ML, AI & Graph", sub: "BlueArc", dates: "Feb 2025 – Present",
       bullets: [
-        "Architected a risk-decisioning layer with drag-and-drop SQL/Python workflows, cutting policy deployment from months to hours.",
-        "Built probabilistic graph models to uncover hidden business relationships, improving fraud/risk scoring.",
-        "Orchestrated agentic workflows unifying multimodal business data, improving risk-classification accuracy by 38%.",
-        "Used text + image embeddings to flag impersonation and product reuse across domains and ads."
+        "Built a multi-agent decisioning platform on LangGraph and Google ADK that synthesizes web + graph signals into structured risk assessments, automating ~3,000 investigations/week and cutting investigation time ~70%.",
+        "Architected an ML risk-scoring engine (gradient-boosted trees + Probabilistic Graphical Models) scoring thousands of entities from 2M+ monthly signals, cutting false positives ~40% vs. rules-based baselines.",
+        "Engineered a multimodal text + image embedding system to detect duplication, counterfeit listings, and impersonation across ad networks, publishers, marketplaces, and merchants.",
+        "Built the evaluation + human-in-the-loop layer, defining decision-quality metrics and routing low-confidence cases for human review."
       ],
-      chips: ["LangChain", "LangGraph", "Knowledge Graphs", "Embeddings"], url: "https://bluearc.ai/" },
+      chips: ["LangGraph", "Google ADK", "Knowledge Graphs", "XGBoost"], url: "https://bluearc.ai/" },
     { id: "e-intheloop", type: "leaf", parent: "b-exp", order: 1, year: "2024",
       label: "InTheLoop", tag: "Experience",
       title: "Machine Learning Engineer, GenAI", sub: "InTheLoop INC", dates: "Oct 2024 – Jan 2025",
       bullets: [
-        "Fine-tuned VLMs (Qwen2-VL, Gemini 1.5 Pro) via SFT for fabric-damage detection + dynamic pricing.",
-        "Modified DeepSpeed's pipeline to support VLMs, improving inference speed 2.5×.",
-        "Built an Apache Beam / Dataflow pipeline scraping 125k+ images at scale."
+        "Built a distributed image preprocessing pipeline on Dataflow to ingest and transform 120K+ multimodal assets for VLM training.",
+        "Fine-tuned Qwen2-VL and Gemini 1.5 Flash via SFT for fabric-damage detection + dynamic pricing, lifting accuracy from 64% zero-shot to 88%.",
+        "Extended DeepSpeed pipeline parallelism to support multimodal Vision-Language inputs, enabling 2.5× faster multi-GPU Qwen2-VL training."
       ],
-      chips: ["VLMs", "DeepSpeed", "Vertex AI", "Apache Beam"], url: "https://www.intheloopai.com/" },
+      chips: ["VLMs", "DeepSpeed", "Qwen2-VL", "Dataflow"], url: "https://www.intheloopai.com/" },
     { id: "e-finserv", type: "leaf", parent: "b-exp", order: 2, year: "2024",
       label: "FinServ", tag: "Experience",
       title: "AI/ML Engineer Intern", sub: "FinServ Experts", dates: "May 2024 – Aug 2024",
       bullets: [
-        "Fine-tuned LLMs (Llama2, Mistral) with LoRA/QLoRA for financial applications.",
-        "Built domain-specific datasets, reducing false-positive rates by 35% in critical workflows."
+        "Developed a RAG pipeline for enterprise chatbots, achieving 92% factual accuracy and sub-5% hallucination rates.",
+        "Fine-tuned Llama 2 and Mistral with LoRA/QLoRA for policy-aligned financial responses, then cut p95 latency 31% (3.6s → 2.5s) by serving merged models 4-bit quantized on vLLM."
       ],
-      chips: ["LoRA / QLoRA", "Llama2", "Mistral"], url: "https://finservexperts.com/" },
+      chips: ["RAG", "LoRA / QLoRA", "vLLM", "Llama 2"], url: "https://finservexperts.com/" },
     { id: "e-egen", type: "leaf", parent: "b-exp", order: 3, year: "2021 – 23",
       label: "Egen", tag: "Experience",
       title: "Data Engineer", sub: "Egen", dates: "Mar 2021 – Jul 2023",
       bullets: [
-        "Built ETL pipelines (Dataflow, Pub/Sub, Dataproc, BigQuery) processing data 50% faster than standard.",
-        "Led an end-to-end healthcare demo on 7+ GCP tools, showcased at Google's HQ.",
-        "Ingested 10 TB / 400M+ healthcare records; cut query time 10 min → 2 min."
+        "Scoped and delivered a high-throughput data ingestion framework with Blue Shield of California, automating ingestion of TIC-compliant MRF files via Dataflow and BigQuery.",
+        "Tuned Dataflow parallelism, worker autoscaling, and fusion, boosting batch throughput ~70% across 400M+ records (~100 TB).",
+        "Delivered a FHIR-compliant pipeline for Reltio (Pub/Sub → Dataflow → Google Cloud FHIR Store via Whistle mappings).",
+        "Built and presented an end-to-end healthcare analytics demo (BigQuery ML, Vertex AI, Dialogflow, Document AI) at Google HQ."
       ],
       chips: ["Dataflow", "BigQuery", "Vertex AI", "CI/CD"], url: "https://egen.ai/" },
     { id: "e-accenture", type: "leaf", parent: "b-exp", order: 4, year: "2020",
       label: "Accenture", tag: "Experience",
       title: "ML Engineer Intern", sub: "Accenture", dates: "Jan 2020 – Jul 2020",
       bullets: [
-        "Automated document processing with Tesseract OCR — 2s/doc, +30% extraction accuracy.",
-        "Researched RL (Q-Learning, DQN, PPO) for collaborative robots."
+        "Automated document processing with Tesseract OCR (~2s/doc), improving extraction accuracy 30% via A/B-tested preprocessing and adaptive thresholding.",
+        "Evaluated RL methods (Q-Learning, DQN, PPO) for collaborative-robot adaptability and built a bot taxonomy to guide model selection."
       ],
       chips: ["OCR", "Reinforcement Learning"], url: "https://www.accenture.com/us-en" },
 
